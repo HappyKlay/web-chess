@@ -27,7 +27,6 @@ import java.util.List;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
     
-    // List of URL patterns to exclude from JWT authentication
     private static final List<String> EXCLUDED_PATHS = Arrays.asList(
             "/game-ws",
             "/game-ws/",
@@ -53,7 +52,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getRequestURI();
         
-        // Check if path starts with any of the excluded paths
         boolean shouldSkip = EXCLUDED_PATHS.stream()
                 .anyMatch(path::startsWith);
         
