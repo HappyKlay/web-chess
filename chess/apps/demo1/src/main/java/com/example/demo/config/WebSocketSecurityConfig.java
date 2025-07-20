@@ -23,7 +23,6 @@ public class WebSocketSecurityConfig {
         logger.info("Configuring WebSocket message authorization");
         
         return messages
-            // Allow all message types for all destinations
             .simpTypeMatchers(SimpMessageType.CONNECT, 
                              SimpMessageType.DISCONNECT,
                              SimpMessageType.SUBSCRIBE,
@@ -34,13 +33,9 @@ public class WebSocketSecurityConfig {
             .build();
     }
     
-    /**
-     * Disable CSRF for WebSocket connections by providing a no-op CSRF interceptor
-     */
     @Bean
     public ChannelInterceptor csrfChannelInterceptor() {
-        // Return a no-op interceptor instead of the default XorCsrfChannelInterceptor
         logger.info("CSRF protection for WebSockets has been disabled");
-        return new ChannelInterceptor() {}; // Empty implementation that does nothing
+        return new ChannelInterceptor() {};
     }
 } 
