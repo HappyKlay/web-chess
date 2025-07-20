@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+    <h2>WebSocket Test Page</h2>
+    <button onclick="connect()">Connect</button>
+    <button onclick="disconnect()">Disconnect</button>
+    <button onclick="sendPing()">Send Ping</button>
+    <div id="messages"></div>
+
+    <script>
+        let stompClient = null;
+
+        function connect() {
+            const socket = new SockJS('http://localhost:8080/game-ws');
+            stompClient = Stomp.over(socket);
+            
+            stompClient.debug = function(str) {
+                console.log(str);
+            };
+
+            stompClient.connect({}, function (frame) {
+                addMessage('Connected: ' + frame);
+                
+                stompClient.subscribe('/topic/pong', function (response) {
+                    addMessage('Received: ' + response.body);
+                });
+            }, function(error) {
+                addMessage('Error: ' + error);
+            });
+        }
+
+        function disconnect() {
+            if (stompClient !== null) {
+                stompClient.disconnect();
+                addMessage('Disconnected');
+            }
+        }
+
+        function sendPing() {
+            if (stompClient !== null && stompClient.connected) {
+                stompClient.send("/app/ping", {}, "Hello Server!");
+                addMessage('Sent: Hello Server!');
+            } else {
+                addMessage('Not connected!');
+            }
+        }
+
+        function addMessage(message) {
+            const messagesDiv = document.getElementById('messages');
+            const messageElement = document.createElement('div');
+            messageElement.textContent = new Date().toLocaleTimeString() + ' - ' + message;
+            messagesDiv.appendChild(messageElement);
+        }
+    </script>
+</body>
+</html>
