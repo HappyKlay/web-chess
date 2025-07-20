@@ -75,7 +75,6 @@ public class GameService {
             throw new IllegalArgumentException("Game not found");
         }
         
-        // Update game with black player info
         game.setBlackPlayerId(blackPlayerId);
         game.setBlackPlayerElo(blackPlayerElo);
         game.setBlackPlayerName(blackPlayerName);
