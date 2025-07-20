@@ -67,7 +67,6 @@ public class WaitingRoomController {
 
         return waitingRoomService.findByGameCode(gameCode)
                 .map(waitingRoom -> {
-                    // Check if current user is the host
                     if (!waitingRoom.getHost().getId().equals(currentUser.getId())) {
                         return ResponseEntity.status(403).body("Only the host can close the waiting room");
                     }
