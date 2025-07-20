@@ -33,7 +33,6 @@ public class UserController {
             if (authentication.getPrincipal() instanceof User currentUser) {
                 return ResponseEntity.ok(currentUser);
             } else {
-                // For debugging - see what type of principal we actually have
                 return ResponseEntity.status(500)
                     .body("Principal is not a User object, but: " + authentication.getPrincipal().getClass().getName());
             }
