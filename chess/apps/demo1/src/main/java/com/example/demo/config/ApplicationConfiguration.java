@@ -21,7 +21,6 @@ public class ApplicationConfiguration {
 
     @Bean
     UserDetailsService userDetailsService() {
-        // Note: In our app, the 'username' parameter is actually the email
         return email -> {
             System.out.println("Loading user by email: " + email);
             return userRepository.findByEmail(email)
