@@ -16,11 +16,9 @@ export default function CreateWaitingRoomButton() {
         }
       });
       
-      // Get user info from local storage
       const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
       const userId = currentUser.id || "user-" + Math.random().toString(36).substring(7);
       
-      // Navigate to waiting room with the game data
       navigate('/waiting-room', { 
         state: { 
           gameCode: response.data.gameCode,
