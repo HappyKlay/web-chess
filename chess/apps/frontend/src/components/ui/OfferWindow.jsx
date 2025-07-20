@@ -4,7 +4,6 @@ import { Card, CardContent } from "./Card";
 import { HeartHandshake, RotateCcw, X, Clock } from 'lucide-react';
 
 const OfferWindow = ({ children, type, playerName, onAccept, onDecline }) => {
-  // Determine icon and text based on offer type
   const getOfferDetails = () => {
     switch (type) {
       case 'draw':
@@ -104,7 +103,6 @@ const OfferWindow = ({ children, type, playerName, onAccept, onDecline }) => {
 
 export default OfferWindow;
 
-// Example usage in TakeBack component
 export const Takeback = ({ playerName, onAccept, onDecline }) => {
   return (
     <OfferWindow 
@@ -116,7 +114,6 @@ export const Takeback = ({ playerName, onAccept, onDecline }) => {
   );
 };
 
-// Example usage in DrawOffer component
 export const DrawOffer = ({ playerName, onAccept, onDecline }) => {
   return (
     <OfferWindow 
