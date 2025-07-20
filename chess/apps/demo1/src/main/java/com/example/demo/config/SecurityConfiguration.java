@@ -23,7 +23,7 @@ public class SecurityConfiguration {
 
     public SecurityConfiguration(
             JwtAuthenticationFilter jwtAuthenticationFilter,
-            AuthenticationProvider authenticationProvider //ignore Bean warning we will get to that
+            AuthenticationProvider authenticationProvider 
     ) {
         this.authenticationProvider = authenticationProvider;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
@@ -35,20 +35,17 @@ public class SecurityConfiguration {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        // Authentication endpoints
                         .requestMatchers("/auth/**").permitAll()
                         
-                        // Game-related endpoints
                         .requestMatchers("/game/**").permitAll()
                         .requestMatchers("/waiting-room/join/**").permitAll()
                         .requestMatchers("/waiting-room/**").permitAll()
                         
-                        // WebSocket endpoints - very important to allow these
                         .requestMatchers("/game-ws/**").permitAll()
-                        .requestMatchers("/game-ws").permitAll() // Main WebSocket endpoint
-                        .requestMatchers("/game-ws/info").permitAll() // SockJS info endpoint
-                        .requestMatchers("/game-ws/websocket").permitAll() // WebSocket transport endpoint
-                        .requestMatchers("/game-ws/*/**").permitAll() // All SockJS transports
+                        .requestMatchers("/game-ws").permitAll()
+                        .requestMatchers("/game-ws/info").permitAll() 
+                        .requestMatchers("/game-ws/websocket").permitAll() 
+                        .requestMatchers("/game-ws/*/**").permitAll()
                         .requestMatchers("/topic/**").permitAll()
                         .requestMatchers("/app/**").permitAll()
                         
@@ -72,10 +69,8 @@ public class SecurityConfiguration {
                 "http://localhost:3000",
                 "http://127.0.0.1:5500"));
         
-        // Allow all common HTTP methods plus WebSocket protocols
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD"));
         
-        // Allow all standard headers plus WebSocket-specific ones
         configuration.setAllowedHeaders(Arrays.asList(
                 "Authorization", 
                 "Content-Type", 
@@ -87,7 +82,6 @@ public class SecurityConfiguration {
                 "sec-websocket-extensions",
                 "sec-websocket-protocol"));
                 
-        // Add WebSocket upgrade to exposed headers
         configuration.setExposedHeaders(Arrays.asList(
                 "Authorization", 
                 "upgrade", 
