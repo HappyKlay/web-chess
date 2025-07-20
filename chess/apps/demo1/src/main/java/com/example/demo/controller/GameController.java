@@ -78,13 +78,11 @@ public class GameController {
                 return ResponseEntity.ok().build();
             }
             
-            // Update winner's ELO (increase by ELO_CHANGE)
             if (winnerId != null && !winnerId.isEmpty()) {
                 userService.updateElo(winnerId, ELO_CHANGE);
                 log.info("Increased ELO for user {} by {}", winnerId, ELO_CHANGE);
             }
             
-            // Update loser's ELO (decrease by ELO_CHANGE)
             if (loserId != null && !loserId.isEmpty()) {
                 userService.updateElo(loserId, -ELO_CHANGE);
                 log.info("Decreased ELO for user {} by {}", loserId, ELO_CHANGE);
