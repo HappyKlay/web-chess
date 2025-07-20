@@ -17,22 +17,17 @@ public class WaitingRoomService {
     }
 
     public WaitingRoom createWaitingRoom(User host) {
-        // Check if user already has an active waiting room
         Optional<WaitingRoom> existingRoom = waitingRoomRepository.findByHostIdAndActive(host.getId(), true);
         if (existingRoom.isPresent()) {
             return existingRoom.get();
         }
         
-        // Generate a new game code
         String gameCode = WaitingRoom.generateGameCode();
         
-        // Check if a room with this game code already exists
         while (waitingRoomRepository.findByGameCode(gameCode).isPresent()) {
-            // If code already exists, generate a new one
             gameCode = WaitingRoom.generateGameCode();
         }
         
-        // Create a new waiting room
         WaitingRoom waitingRoom = WaitingRoom.builder()
                 .gameCode(gameCode)
                 .host(host)
