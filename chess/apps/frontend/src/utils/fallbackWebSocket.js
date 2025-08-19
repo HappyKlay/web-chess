@@ -5,30 +5,25 @@
  */
 export default class FallbackWebSocket {
   constructor(url, _unused_, options) {
-    // Parse the URL first
     let wsUrl = url;
     let queryParams = '';
     
-    // Keep the query parameters when converting to WebSocket URL
     if (url.includes('?')) {
       const parts = url.split('?');
       wsUrl = parts[0];
       queryParams = '?' + parts[1];
     }
     
-    // Convert http/https URLs to ws/wss
     if (wsUrl.startsWith('http:')) {
       wsUrl = wsUrl.replace('http:', 'ws:');
     } else if (wsUrl.startsWith('https:')) {
       wsUrl = wsUrl.replace('https:', 'wss:');
     }
 
-    // Ensure the URL is for a WebSocket endpoint and add the websocket suffix
     if (!wsUrl.endsWith('/websocket')) {
       wsUrl = wsUrl.endsWith('/') ? `${wsUrl}websocket` : `${wsUrl}/websocket`;
     }
     
-    // Reattach query parameters
     wsUrl += queryParams;
 
     console.log(`FallbackWebSocket: Converted URL to ${wsUrl}`);
@@ -43,7 +38,6 @@ export default class FallbackWebSocket {
       error: []
     };
     
-    // Create native WebSocket
     this.connect();
   }
 
