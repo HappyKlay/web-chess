@@ -1,9 +1,9 @@
 
 const calculateX = (square: string, isFlipped: boolean, squareSize: number) => {
   
-  let columnIndex = square.charCodeAt(0) - 'a'.charCodeAt(0); // Convert column letter to index
+  let columnIndex = square.charCodeAt(0) - 'a'.charCodeAt(0); 
   if (isFlipped) {
-    columnIndex = 7 - columnIndex; // Reverse the column index if the board is flipped
+    columnIndex = 7 - columnIndex;
   }
 
   return columnIndex * squareSize + squareSize / 2;
@@ -11,9 +11,9 @@ const calculateX = (square: string, isFlipped: boolean, squareSize: number) => {
 
 const calculateY = (square: string, isFlipped: boolean, squareSize: number) => {
   
-  let rowIndex = 8 - parseInt(square[1]); // Convert row number to index 
+  let rowIndex = 8 - parseInt(square[1]);
   if (isFlipped) {
-    rowIndex = 7 - rowIndex; // Reverse the row index if the board is flipped
+    rowIndex = 7 - rowIndex;
   }
   return rowIndex * squareSize + squareSize / 2;
 };
@@ -38,7 +38,6 @@ export const drawArrow = ({
   ctx.lineWidth = 2;
   ctx.stroke();
 
-  // Draw arrowhead
   const angle = Math.atan2(endY - startY, endX - startX);
   const arrowheadSize = 15; 
   const arrowheadX1 = endX - arrowheadSize * Math.cos(angle - Math.PI / 6);
