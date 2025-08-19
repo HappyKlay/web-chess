@@ -1,4 +1,3 @@
-// Polyfill for Node.js global objects needed by sockjs-client
 if (typeof global === 'undefined') {
   window.global = window;
 }
